@@ -45,10 +45,8 @@ export interface IOrderSuccess {
 
 export type TProductInfo = Omit<IProduct, 'id'>
 
-export type TBasketInfo = {
+export interface IBasket extends IProduct{
   index: number;         
-  title: string;         
-  price: number | null;   
 }
 
 export type TOrderInfo = Pick<IOrderForm, 'payment' | 'address'>
