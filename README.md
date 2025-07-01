@@ -92,14 +92,14 @@ Presenter — посредник между View и Model. Получает со
 
 Поля класса:
 * `_catalog: IProduct[]` - массив товаров в магазине.
-* `_basket: IProduct[]` - массив товаров, добавленных в корзину.
+* `_basket: IBasket[]` - массив товаров, добавленных в корзину.
 * `_preview: IProduct | null` - выбранный товар для предварительного просмотра.
 * `order: IOrder | null` - данные текущего заказа.
 
 Методы класса:
 
-* `setCatalog(catalog:  IProduct[]): void` - установить (обновить) список товаров в каталоге.
-* `setBasket(basket:  IProduct[]): void` - установить (обновить) список товаров в корзине.
+* `set catalog(catalog:  IProduct[]): void` - установить (обновить) список товаров в каталоге.
+* `set basket(basket:  IBasket[]): void` - установить (обновить) список товаров в корзине.
 * `getProduct(id: TProductId): IProduct` - получить товар по его id.
 * `addBasket(product: IProduct): void` - добавить товар в корзину.
 * `removeBasket(product: IProduct): void` - удалить товар из корзины.

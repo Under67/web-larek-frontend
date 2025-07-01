@@ -1,0 +1,42 @@
+import { IProduct } from "../types";
+import { Component } from "./base/Component";
+import { IEvents } from "./base/events";
+
+export class BasketView<T> extends Component<T> {
+    protected _product: HTMLElement[];
+    protected items: IProduct[];
+    protected itemsContainer: HTMLElement;
+    protected totalPrice: HTMLElement;
+    protected button: HTMLButtonElement;
+    constructor(protected container: HTMLElement, events: IEvents) {
+      super(container);
+      this.itemsContainer = this.container.querySelector('.basket__list');
+      this.totalPrice = this.container.querySelector('.basket__price');
+      this.button = this.container.querySelector('.basket__button');
+
+      this.button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const ids = this.items
+    .filter(item => item.price != null && item.price > 0)
+    .map(item => item.id);
+        events.emit('order:submit', ids)
+      })
+    }
+    setProduct(items: HTMLElement[], products: IProduct[]) {
+      this._product = items;
+      this.items = products;
+      this.itemsContainer.replaceChildren(...items)
+      const total = this.items.reduce((sum, item) => sum + item.price, 0);
+      this.updateTotalPrice(total);
+    }
+
+    updateTotalPrice(price: number) {
+      this.totalPrice.textContent = `${price} синапсов`;
+}
+   get product(): HTMLElement[] {
+      return this._product;
+    }
+    get element(): HTMLElement {
+    return this.container;
+  }
+  }

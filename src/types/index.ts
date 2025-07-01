@@ -1,4 +1,6 @@
-type TProductId = string;
+
+
+export type TProductId = string;
 
 export interface IProduct {
   id: TProductId;
@@ -6,7 +8,8 @@ export interface IProduct {
   image: string;
   title: string;
   category: string;
-  price: number | null;  
+  price: number;  
+  inBasket?: boolean;
 }
 
 export interface IProductList  {
@@ -21,7 +24,7 @@ export interface ShopModel {
   order: IOrder | null;
 }
 
-type TPaymentType = 'online' | 'offline'
+export type TPaymentType = 'card' | 'cash'
 
 export interface IClient {
   email: string;
@@ -52,3 +55,15 @@ export interface IBasket extends IProduct{
 export type TOrderInfo = Pick<IOrderForm, 'payment' | 'address'>
 
 export type TOrderContact = Pick<IOrderForm, 'email' | 'phone'>
+
+export type ApiPostMethods = "POST" | "PUT" | "DELETE" | "PATCH"
+
+export interface IApi {
+  baseUrl: string;
+  get<T>(uri: string): Promise<T>;
+  post<T>(uri: string, data: object, method?: ApiPostMethods): Promise<T>;
+}
+
+export interface IPreviewEventData {
+  product: IProduct;
+}

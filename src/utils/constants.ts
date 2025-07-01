@@ -4,3 +4,11 @@ export const CDN_URL = `${process.env.API_ORIGIN}/content/weblarek`;
 export const settings = {
 
 };
+
+export enum ECategory {
+  "софт-скил" = '_soft',
+  "другое" = '_other',
+  "дополнительное" = '_additional',
+  "кнопка" = '_button', 
+  "хард-скил" = '_hard'
+}
