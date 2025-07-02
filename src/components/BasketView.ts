@@ -7,30 +7,33 @@ export class BasketView<T> extends Component<T> {
     protected items: IProduct[];
     protected itemsContainer: HTMLElement;
     protected totalPrice: HTMLElement;
+    protected total: number;
     protected button: HTMLButtonElement;
     constructor(protected container: HTMLElement, events: IEvents) {
-      super(container);
+      super(container, events);
       this.itemsContainer = this.container.querySelector('.basket__list');
       this.totalPrice = this.container.querySelector('.basket__price');
-      this.button = this.container.querySelector('.basket__button');
-
+      this.button = this.container.querySelector('.basket__button'); 
       this.button.addEventListener('click', (e) => {
         e.preventDefault();
+        if (this.total > 0) {
         const ids = this.items
     .filter(item => item.price != null && item.price > 0)
     .map(item => item.id);
-        events.emit('order:submit', ids)
+        events.emit('order:submit', { items: ids, total: this.total})
+        }
       })
     }
-    setProduct(items: HTMLElement[], products: IProduct[]) {
+    setProduct(items: HTMLElement[], products: IProduct[]): void {
       this._product = items;
       this.items = products;
       this.itemsContainer.replaceChildren(...items)
-      const total = this.items.reduce((sum, item) => sum + item.price, 0);
-      this.updateTotalPrice(total);
+      this.total = this.items.reduce((sum, item) => sum + item.price, 0);
+      this.updateTotalPrice(this.total);
+      this.button.disabled = this.total <= 0;
     }
 
-    updateTotalPrice(price: number) {
+    updateTotalPrice(price: number): void {
       this.totalPrice.textContent = `${price} синапсов`;
 }
    get product(): HTMLElement[] {

@@ -1,22 +1,24 @@
+import { ensureElement } from "../utils/utils";
 import { Component } from "./base/Component";
 import { IEvents } from "./base/events";
 
-export class Success<IOrderSuccess> extends Component<IOrderSuccess> {
-  protected form: HTMLElement;
+export class Success  {
   protected totalElement: HTMLElement;
   protected button: HTMLButtonElement;
   constructor(protected container: HTMLElement, events: IEvents) {
-    super(container);
-    this.form = this.container;
-    this.totalElement = this.form.querySelector('.order-success__description');
-    this.button = this.form.querySelector('.order-success__close');
-
-    this.form.addEventListener('submit', (e) => {
+    this.container = container;
+    this.totalElement = ensureElement('.order-success__description', this.container);
+    this.button = ensureElement('.order-success__close', this.container) as HTMLButtonElement;
+    this.button.addEventListener('click', (e) => {
       e.preventDefault();
       events.emit('order:success');
+    
     });
   }
-  setTotalPrice(total: number) {
-    this.totalElement.textContent = total.toString();
+  setTotalPrice(total: number): void {
+    this.totalElement.textContent = `Списано ${total.toString()} синапсов`;
+  }
+  get element() {
+    return this.container;
   }
 }

@@ -1,8 +1,9 @@
 import { IProduct } from "../../types";
+import { IEvents } from "./events";
 
 export abstract class Component<T> {
     protected _data: Partial<IProduct>;
-    constructor(protected readonly container: HTMLElement) {
+    constructor(protected readonly container: HTMLElement, protected events: IEvents) {
 
     }
 

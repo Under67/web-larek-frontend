@@ -1,5 +1,3 @@
-
-
 export type TProductId = string;
 
 export interface IProduct {
@@ -17,13 +15,6 @@ export interface IProductList  {
   items: IProduct[];
 }
 
-export interface ShopModel {
-  catalog: IProduct[];
-  basket: IProduct[];
-  preview: IProduct | null;
-  order: IOrder | null;
-}
-
 export type TPaymentType = 'card' | 'cash'
 
 export interface IClient {
@@ -33,8 +24,8 @@ export interface IClient {
 }
 
 export interface IOrderForm extends IClient {
-  payment: TPaymentType;
-  total: number;
+  payment: string;
+  total: number; 
 }
 
 export interface IOrder extends IOrderForm {
@@ -44,12 +35,6 @@ export interface IOrder extends IOrderForm {
 export interface IOrderSuccess {
   id: string;
   total: number;
-}
-
-export type TProductInfo = Omit<IProduct, 'id'>
-
-export interface IBasket extends IProduct{
-  index: number;         
 }
 
 export type TOrderInfo = Pick<IOrderForm, 'payment' | 'address'>
@@ -66,4 +51,8 @@ export interface IApi {
 
 export interface IPreviewEventData {
   product: IProduct;
+}
+
+export interface IPageLocked {
+  locked: boolean;
 }

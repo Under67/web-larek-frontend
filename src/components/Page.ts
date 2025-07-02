@@ -1,28 +1,28 @@
 import { ensureElement } from "../utils/utils";
 import { Component } from "./base/Component";
+import { IEvents } from "./base/events";
 
 interface ICardsContainer {
   catalog: HTMLElement[];
 }
 
 export class Page extends Component<ICardsContainer> {
-  protected _catalog: HTMLElement;
   protected basketButton: HTMLButtonElement;
   protected counter: HTMLElement;
   protected pageWrapperElement: HTMLElement;
-  constructor(protected container: HTMLElement) {
-    super(container)
+  constructor(protected container: HTMLElement, events: IEvents) {
+    super(container, events)
     this.pageWrapperElement = ensureElement<HTMLElement>('.page__wrapper');
     this.basketButton = document.querySelector('.header__basket') as HTMLButtonElement;
     this.counter = document.querySelector('.header__basket-counter') as HTMLElement;
 
     this.basketButton.addEventListener('click', (e) => { 
       e.preventDefault();
-      console.log(123)
+    this.events.emit("catalog:basket");
     })
   }
 
-  setCount(count: number) {
+  setCount(count: number): void {
     this.counter.textContent = count.toString();
   }
 
