@@ -1,6 +1,7 @@
 {
   "name": "my-webpack-project",
   "version": "1.0.0",
+  "homepage": "https://under67.github.io/web-larek-frontend",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
