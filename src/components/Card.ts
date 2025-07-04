@@ -100,8 +100,6 @@ export class CardPreview extends Merchandise<IProduct> {
   this.basketAddButton.replaceWith(newButton);
   this.basketAddButton = newButton;
 
-  this._data = data;
-
   const isPriceValid =
     typeof data.price === 'number' && data.price > 0;
 

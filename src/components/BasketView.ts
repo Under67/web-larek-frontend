@@ -17,29 +17,26 @@ export class BasketView<T> extends Component<T> {
       this.button.addEventListener('click', (e) => {
         e.preventDefault();
         if (this.total > 0) {
-        const ids = this.items
-    .filter(item => item.price != null && item.price > 0)
-    .map(item => item.id);
-        events.emit('order:submit', { items: ids, total: this.total})
+        events.emit('order:submit')
         }
       })
     }
-    setProduct(items: HTMLElement[], products: IProduct[]): void {
-      this._product = items;
-      this.items = products;
-      this.itemsContainer.replaceChildren(...items)
-      this.total = this.items.reduce((sum, item) => sum + item.price, 0);
-      this.updateTotalPrice(this.total);
-      this.button.disabled = this.total <= 0;
-    }
+  setProduct(items: HTMLElement[]): void {
+    this._product = items;
+    this.itemsContainer.replaceChildren(...items);
+  }
 
-    updateTotalPrice(price: number): void {
-      this.totalPrice.textContent = `${price} синапсов`;
-}
+  updateTotalPrice(price: number): void {
+    this.total = price;
+    this.totalPrice.textContent = `${price} синапсов`;
+  }
    get product(): HTMLElement[] {
       return this._product;
     }
     get element(): HTMLElement {
     return this.container;
+  }
+  setSubmitDisabled(state: boolean): void {
+  this.button.disabled = state;
   }
   }
